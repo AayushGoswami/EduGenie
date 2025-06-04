@@ -1,0 +1,5 @@
+# config.yaml
+# Chunk size, model path, DB URI etc.
+chunk_size: 512
+model_path: "path/to/model"
+db_uri: "postgresql://user:password@localhost:5432/edugenie"

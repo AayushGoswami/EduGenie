@@ -1,0 +1,10 @@
+# requirements.txt
+streamlit
+fastapi
+pydantic
+psycopg2-binary
+faiss-cpu
+sentence-transformers
+PyYAML
+fitz  # PyMuPDF
+nltk
