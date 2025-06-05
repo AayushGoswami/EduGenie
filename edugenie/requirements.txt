@@ -8,3 +8,5 @@ sentence-transformers
 PyYAML
 fitz  # PyMuPDF
 nltk
+requests
+python-dotenv
