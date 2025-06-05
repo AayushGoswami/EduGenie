@@ -2,6 +2,7 @@
 
 import os
 import json
+import re
 import fitz  # PyMuPDF
 import nltk
 from nltk.tokenize import sent_tokenize
@@ -16,6 +17,11 @@ def extract_text_from_pdf(pdf_path):
         for page in doc:
             text += page.get_text()
     return text
+
+def clean_text(text):
+    text = re.sub(r'\n+', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
 
 def semantic_chunk(text, chunk_size=300):
     sentences = sent_tokenize(text)
@@ -41,6 +47,7 @@ def process_all_pdfs(input_dir, output_dir, chunk_size=300):
 
     for pdf_file in Path(input_dir).glob("*.pdf"):
         text = extract_text_from_pdf(pdf_file)
+        text = clean_text(text)
         chunks = semantic_chunk(text, chunk_size)
 
         data = [{"source": pdf_file.name, "chunk_id": i, "content": chunk}
