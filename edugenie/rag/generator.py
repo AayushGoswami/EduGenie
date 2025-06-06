@@ -16,8 +16,10 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 LLM_MODEL = "llama3-8b-8192"  # Groq’s LLaMA 3 model
 
-def build_prompt(context_chunks: List[str], question: str) -> str:
+def build_prompt(context_chunks: List[str], conversation_history, question: str) -> str:
     context = "\n\n".join([chunk["content"] for chunk in context_chunks])
+    if not context:
+        context = "No relevant information found in the provided documents."
     prompt = f"""
     [INSTRUCTION]:
     You are a helpful science teacher. Use the information provided below to answer the question.
@@ -27,6 +29,9 @@ def build_prompt(context_chunks: List[str], question: str) -> str:
     [CONTEXT]:
     {context}
 
+    [CONVERSATION_HISTORY]:
+    {conversation_history}
+
     [QUESTION]:
     {question}
 
@@ -34,8 +39,8 @@ def build_prompt(context_chunks: List[str], question: str) -> str:
     """
     return prompt.strip()
 
-def generate_answer(context_chunks: List[str], question: str) -> str:
-    prompt = build_prompt(context_chunks, question)
+def generate_answer(context_chunks: List[str], conversation_history, question: str) -> str:
+    prompt = build_prompt(context_chunks, conversation_history, question)
 
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -49,7 +54,7 @@ def generate_answer(context_chunks: List[str], question: str) -> str:
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.2,
-        "max_tokens": 512,
+        "max_tokens": 1024,
         "top_p": 1,
         "frequency_penalty": 0,
         "presence_penalty": 0
