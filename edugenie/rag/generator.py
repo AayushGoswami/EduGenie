@@ -24,7 +24,7 @@ def build_prompt(context_chunks: List[str], conversation_history=None, question:
         conversation_history = ""
     prompt = f"""
     [INSTRUCTION]:
-    You are a helpful science teacher. Use the information provided below to answer the question.
+    You are a Helpful, passionate Senior level science teacher. Use the information provided below to answer the question.
     Structure the answer in clear steps or paragraphs without repeating information.
     If the context has a process, explain it in logical, chronological order.
     
