@@ -15,7 +15,7 @@
 # st.set_page_config(page_title="EduGenie - Ask Your Book AI", layout="wide")
 # st.title("📘 EduGenie: Ask Your Science Book")
 # st.markdown("""
-# Welcome to **EduGenie**! Ask any question based on your Science textbooks from Class 7 to 10,
+# Welcome to **EduGenie**! Ask any question based on your Science textbooks from Class 7 to 12,
 # and get AI-generated, context-grounded answers from your books.
 # """)
 

@@ -8,7 +8,7 @@ from utils import initialize_chat_history, show_chat_interface
 # Page Configuration
 st.set_page_config(page_title="EduGenie", page_icon=":books:", layout="centered", initial_sidebar_state="expanded")
 st.title("📚 EduGenie - Your NCERT Science Chatbot")
-st.caption("Focused on UPSC preparation using NCERT Class 7–10 Science content 📘")
+st.caption("Focused on UPSC preparation using NCERT Class 7–12 Science content 📘")
 
 initialize_chat_history()  # Ensure chat history is initialized
 

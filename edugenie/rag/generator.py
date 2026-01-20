@@ -14,12 +14,14 @@ load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-LLM_MODEL = "llama3-8b-8192"  # Groq’s LLaMA 3 model
+LLM_MODEL = "llama-3.1-8b-instant"  # Groq-supported model (see deprecations page)
 
-def build_prompt(context_chunks: List[str], conversation_history, question: str) -> str:
+def build_prompt(context_chunks: List[str], conversation_history=None, question: str = "") -> str:
     context = "\n\n".join([chunk["content"] for chunk in context_chunks])
     if not context:
         context = "No relevant information found in the provided documents."
+    if not conversation_history:
+        conversation_history = ""
     prompt = f"""
     [INSTRUCTION]:
     You are a helpful science teacher. Use the information provided below to answer the question.
@@ -39,7 +41,7 @@ def build_prompt(context_chunks: List[str], conversation_history, question: str)
     """
     return prompt.strip()
 
-def generate_answer(context_chunks: List[str], conversation_history, question: str) -> str:
+def generate_answer(context_chunks: List[str], conversation_history=None, question: str = "") -> str:
     prompt = build_prompt(context_chunks, conversation_history, question)
 
     headers = {
